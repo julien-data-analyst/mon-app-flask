@@ -1,0 +1,69 @@
+{% extends "base.html"%}
+
+{% block title %}
+Accueil - Mon Site de Jouets
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1> Bienvenue à votre site de jouets </h1>
+        
+        <h2>Les catégories qui existent en BDD:</h2>
+        <ol>
+        {% for cat in ttes_categ %}
+        <li> Nom: {{ cat.nom}} Description: {{ cat.description }} </li>
+        {% endfor %}
+        </ol>
+
+        <p>
+            {% if nom_cat %}
+              La catégorie saisie est {{nom_cat}}.
+              {% if desc_cat %}
+              <br/>Sa description est: {{desc_cat}}.
+              {% endif %}
+              <br/>Merci de mettre à jour le formulaire ci-dessous:
+            {% else %}
+              Merci de saisir une catégorie d'un jouet:
+            {% endif %}
+            </p>
+        </div>
+                 
+            <form method="POST" action="/" novalidate>
+                {# form.hidden_tag() pour ajouter un champ de formulaire caché #}
+                {#contenant un jeton CSRF qui renforce la sécurité contre les attaques CSRF. #}
+                {{ form.hidden_tag() }}
+                {#form.nom_cat.label pour afficher l'étiquette du champ nom_cat,#}
+                {#form.nom_cat() pour afficher le champ de texte lui-même.#}
+                {# On peut également spécifier des attributs HTML ,#}
+            <div class="row"> 
+                <div class="col-6">
+                {{ form.nom_cat.label }} {{ form.nom_cat(size=20, class='classe_css') }}
+                </div>
+                <div class="col-6">
+                <ul>
+                    {% for error in form.nom_cat.errors %}
+                    <li class='error'>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                </div>
+            </div>
+
+            <div class="row mt-2"> 
+                <div class="col-6">
+                {{ form.desc_cat.label }} {{ form.desc_cat(rows=5, cols=20) }}
+                </div>
+            </div>
+            <div class="row mt-2"> 
+                <div class="col-3">            
+                {#form.envoyer pour afficher le bouton de soumission du formulaire.#}
+                {{ form.envoyer() }}
+                </div>
+            </div>
+            </form>     
+  
+    
+</div>
+
+{% endblock %}
