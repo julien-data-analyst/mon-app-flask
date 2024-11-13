@@ -103,7 +103,7 @@ def supprimer_categ(id_cat):
 
         bdd.commit() # Pour les requêtes INSERT, UPDATE et DELETE.
 
-        return f"<h1>Catégorie N° {categ["id"]} a été supprimée </h1>"
+        return "<h1>Catégorie N°"+ str(categ["id"]) +" a été supprimée </h1>"
 
     else :
         return "<h1>La catégorie demandée est introuvable</h1>"
